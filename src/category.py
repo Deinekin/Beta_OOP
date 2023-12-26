@@ -14,8 +14,9 @@ class Category:
         self.description = description
         self.__goods = goods
         self.__class__.unique_goods_count = len(set(self.__goods))
-        if self.name not in self.__class__.set_of_categories:
-            self.__class__.set_of_categories.add(self.name)
+        for e in self.__goods:
+            if e.name not in self.__class__.set_of_categories:
+                self.__class__.set_of_categories.add(e.name)
 
     @property
     def get_goods(self):
