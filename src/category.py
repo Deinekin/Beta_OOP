@@ -1,7 +1,7 @@
 class Category:
     """Класс для описания категорий товаров"""
-    unique_goods: int = 0
-    quantity_of_categories: set = set()
+    unique_goods_count: int = 0
+    set_of_categories: set = set()
 
     def __init__(self, name: str, description: str, goods: list) -> None:
         """
@@ -12,10 +12,15 @@ class Category:
         """
         self.name = name
         self.description = description
-        self.goods = goods
-        self.__class__.unique_goods = len(set(self.goods))
-        if self.name not in self.__class__.quantity_of_categories:
-            self.__class__.quantity_of_categories.add(self.name)
+        self.__goods = goods
+        self.__class__.unique_goods_count = len(set(self.__goods))
+        if self.name not in self.__class__.set_of_categories:
+            self.__class__.set_of_categories.add(self.name)
 
-
-
+    @property
+    def get_goods(self):
+        goods_list: list = []
+        for good in self.__goods:
+            # yield f'Продукт, {good.price} руб. Остаток: {good.quantity} шт.'
+            goods_list.append(f'Продукт, {good.price} руб. Остаток: {good.quantity} шт.')
+        return goods_list
