@@ -20,6 +20,6 @@ def test_category_init(category_init):
     assert category_init[1].description == 'Продовольственный магазин'
 
 
-def test_category_count(category_init):
-    assert Category.unique_goods == 3
-    assert len(Category.quantity_of_categories) == 2
+def test_category_count():
+    assert Category.unique_goods_count == 3
+    assert len(Category.set_of_categories) == 2
