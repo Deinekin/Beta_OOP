@@ -39,3 +39,11 @@ class Product:
     def get_price(self) -> None:
         """Делитер цены"""
         self.price = None
+
+    def __str__(self) -> str:
+        """Магический метод для вывода информации"""
+        return f'{self.name}, {self.price} руб. Остаток: {self.quantity} шт.'
+
+    def __add__(self, other) -> float | int:
+        """Магический метод для сложения общей стоимости двух товаров"""
+        return self.price * self.quantity + other.price * other.quantity
