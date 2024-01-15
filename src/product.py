@@ -4,6 +4,8 @@ from typing import Any
 class Product:
     """Класс для товаров с указанием цены и количества в наличии"""
 
+    product_list: list = []
+
     def __init__(self, name: str, description: str, price: float, quantity: int) -> None:
         """
         Конструктор класса
@@ -47,3 +49,43 @@ class Product:
     def __add__(self, other) -> float | int:
         """Магический метод для сложения общей стоимости двух товаров"""
         return self.price * self.quantity + other.price * other.quantity
+
+    @classmethod
+    def add_product(cls, *args) -> None:
+        """Метод, при помощи которого в список продуктов добавляются
+        объекты только класса Product или его наследников"""
+        if issubclass(cls, Product):
+            cls.product_list.append(cls(*args))
+
+
+class Smartphone(Product):
+    def __init__(self, name: str, description: str, price: float, quantity: int, productivity: float, model: str,
+                 memory: int, color: str) -> None:
+        """Конструктор класса Smartphone"""
+        super().__init__(name, description, price, quantity)
+        self.productivity = productivity
+        self.model = model
+        self.memory = memory
+        self.color = color
+
+    def __add__(self, other):
+        """Метод сложения цен объектов только класса Smartphone"""
+        if isinstance(self, Smartphone) and isinstance(other, Smartphone):
+            return self.price + other.price
+        raise TypeError
+
+
+class LawnGrass(Product):
+    def __init__(self, name: str, description: str, price: float, quantity: int, manufacturer_country: str,
+                 germination_period: int, color: str):
+        """Конструктор класса LawnGrass"""
+        super().__init__(name, description, price, quantity)
+        self.manufacturer_country = manufacturer_country
+        self.germination_period = germination_period
+        self.color = color
+
+    def __add__(self, other):
+        """Метод сложения цен объектов только класса LawnGrass"""
+        if isinstance(self, LawnGrass) and isinstance(other, LawnGrass):
+            return self.price + other.price
+        raise TypeError
