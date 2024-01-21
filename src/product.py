@@ -1,23 +1,38 @@
 from typing import Any
+from abc import ABC, abstractmethod
 
 
-class Product:
+class BasicProduct(ABC):
+    """Базовый абстрактный класс"""
+
+    @abstractmethod
+    def add_product(self, *args):
+        """Абстрактный метод добавления"""
+        pass
+
+
+class ProductMixin:
+    """Миксин"""
+
+    def __init__(self, name: str, description: str, price: float, quantity: int) -> None:
+        self.name = name
+        self.description = description
+        self.price = price
+        self.quantity = quantity
+
+    def __repr__(self):
+        """Вывод в консоль информации о созданном объекте"""
+        return (f"Создан объект класса {self.__class__} со свойствами {self.name}, "
+                f"{self.description}, {self.price}, {self.quantity}")
+
+
+class Product(BasicProduct, ProductMixin):
     """Класс для товаров с указанием цены и количества в наличии"""
 
     product_list: list = []
 
     def __init__(self, name: str, description: str, price: float, quantity: int) -> None:
-        """
-        Конструктор класса
-        :param name: название продукта
-        :param description: описание продукта
-        :param price: цена продукта
-        :param quantity: количество продукта
-        """
-        self.name = name
-        self.description = description
-        self.price = price
-        self.quantity = quantity
+        super().__init__(name, description, price, quantity)
 
     @classmethod
     def initialize_product(cls, name: str, description: str, price: float, quantity: int) -> Any:
@@ -58,7 +73,7 @@ class Product:
             cls.product_list.append(cls(*args))
 
 
-class Smartphone(Product):
+class Smartphone(Product, ProductMixin):
     def __init__(self, name: str, description: str, price: float, quantity: int, productivity: float, model: str,
                  memory: int, color: str) -> None:
         """Конструктор класса Smartphone"""
@@ -75,7 +90,7 @@ class Smartphone(Product):
         raise TypeError
 
 
-class LawnGrass(Product):
+class LawnGrass(Product, ProductMixin):
     def __init__(self, name: str, description: str, price: float, quantity: int, manufacturer_country: str,
                  germination_period: int, color: str):
         """Конструктор класса LawnGrass"""

@@ -17,7 +17,7 @@ if __name__ == '__main__':
     product2 = Product(name="Свинина", description="Мясо", price=356, quantity=17)
     product3 = Product(name="Говядина", description="Мясо", price=549.50, quantity=15)
     print(product1.get_price)
-    product1.get_price = 1
+    # product1.get_price = 1
     print(product1.get_price)
     # del product1.get_price
     print(product1.get_price)
@@ -42,3 +42,7 @@ if __name__ == '__main__':
     smartphone1.add_product("Xiaomi", "smartphone", 18000, 5, 87.8, "Redmi Note 9", 512, "blue")
     for e in smartphone1.product_list:
         print(e)
+
+    print(repr(smartphone1))
+    print(repr(product1))
+    print(repr(lawn_grass2))
