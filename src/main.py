@@ -8,6 +8,7 @@ if __name__ == '__main__':
         Product.initialize_product(name="Молоко", description="Молочная продукция", price=73.50, quantity=120)]
 
     category = Category(name='Пятерочка', description='Продовольственный магазин', goods=products_list)
+    category1 = Category(name='Пятерочка', description='Продовольственный магазин', goods=[])
     # print(*category.get_goods)
     for e in category.get_goods:
         print(e)
@@ -40,9 +41,15 @@ if __name__ == '__main__':
     print(f"{type(product1)} {type(smartphone1)} {type(lawn_grass1)}")
 
     smartphone1.add_product("Xiaomi", "smartphone", 18000, 5, 87.8, "Redmi Note 9", 512, "blue")
+
     for e in smartphone1.product_list:
         print(e)
 
     print(repr(smartphone1))
     print(repr(product1))
     print(repr(lawn_grass2))
+    print(category.avg_price()) # средняя цена норм работает
+    print(category1.avg_price()) # средней цены нет из-за деления на 0, ZeroDivisionError
+    smartphone5 = Smartphone(name="Xiaomi", description="smartphone", price=15000, quantity=0, productivity=87.8,
+                             model="Redmi Note 9", memory=256,
+                             color="blue")  # Ошибка с добавлением нулевого количества товаров, программа дропается
