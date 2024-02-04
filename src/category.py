@@ -3,6 +3,7 @@ class Category:
     unique_goods_count: int = 0
     set_of_categories: set = set()
     count_products: int = 0
+    count_price: int = 0
 
     def __init__(self, name: str, description: str, goods: list) -> None:
         """
@@ -20,6 +21,8 @@ class Category:
                 self.__class__.set_of_categories.add(e.name)
         for good in self.__goods:
             self.count_products += good.quantity
+        for good in self.__goods:
+            self.count_price += good.price
 
     def __str__(self):
         """Магический метод для вывода информации"""
@@ -32,3 +35,10 @@ class Category:
             # yield f'Продукт, {good.price} руб. Остаток: {good.quantity} шт.'
             goods_list.append(f'Продукт, {good.price} руб. Остаток: {good.quantity} шт.')
         return goods_list
+
+    def avg_price(self) -> float | int:
+        try:
+            return round(self.count_price / self.count_products, 2)
+        except ZeroDivisionError:
+            print("Список товаров пуст")
+            return 0

@@ -18,7 +18,10 @@ class ProductMixin:
         self.name = name
         self.description = description
         self.price = price
-        self.quantity = quantity
+        if quantity > 0:
+            self.quantity = quantity
+        else:
+            raise ValueError("Не может быть добавлен товар с нулевым количеством.")
 
     def __repr__(self):
         """Вывод в консоль информации о созданном объекте"""
